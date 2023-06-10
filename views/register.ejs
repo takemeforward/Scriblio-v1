@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <%- include("partials/resource") -%>
+    <link rel="stylesheet" href="css/loginStyle.css">
+</head>
+<body>
+    <div class="signup-container">
+        <h1>Signup </h1>
+        <form id="signupForm" action="/register" method="post">
+            <div class="input-field-container">
+                <input class="input-field" type="text" id="firstName" name="firstName" placeholder="First name">
+            </div>
+            <div class="input-field-container">
+                 <input class="input-field" type="text" id="lastName" name="lastName" placeholder="Last name">
+            </div>
+            <div class="input-field-container">
+                <input class="input-field" type="email" id="email" name="username" placeholder="Email">
+            </div>
+            <div class="input-field-container">
+               <input class="input-field" type="password" id="password" name="password" placeholder="Create password">
+            </div>
+            <div class="input-field-container">
+               <input class="input-field" type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password">
+            </div>
+           
+            
+            <span id="eyeButton" onclick="togglePasswordVisibility()">&#128274;</span>
+            <button type="submit" id="submitButton" disabled>Sign Up</button>
+            <p></p>
+            <p class="login-link">Already have an account? <a href="/login">Login</a></p>
+            <a href="/auth/google" role="button" class="google-button"><i class="fa-brands fa-google"></i> Register with google</a>
+    
+            <p class="message"></p>
+          </form>
+    
+
+        <script src="script/register.js"></script>
+    </div>
+</body>
+</html>
+

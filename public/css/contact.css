@@ -1,0 +1,36 @@
+.form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form{
+    width: 450px;
+    text-align: right;
+}
+.form-control{
+    margin: 1rem auto;
+    width: 450px;
+
+}
+.form-control:focus{
+    box-shadow: none;
+}
+.message{
+    height: 150px;
+}
+.btn{
+    margin: 1rem 0;
+}
+
+@media (max-width: 600px){
+    .form-control{
+        margin: 1rem auto;
+        width: 90%;
+    }
+    .form{
+        width: 90%;
+    }
+    .btn{
+        margin-right: 5%;
+    }
+}

@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    width: 80%;
+    max-width: 600px;
+    margin: 100px auto;
+    background-color: #ffffff;
+    padding: 40px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    color: #333333;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    color: #777777;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  .tick-icon {
+    margin-top: 30px;
+    font-size: 60px;
+    color: #4CAF50;
+  }
+  
+  .tick-icon span {
+    display: inline-block;
+    transform: translateY(4px);
+  }
+  

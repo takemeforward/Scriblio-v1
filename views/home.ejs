@@ -1,0 +1,107 @@
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Scriblio | a daily Journal site</title>
+  <meta charset="utf-8">
+ 
+
+
+
+ <%- include("partials/resource") -%>
+
+
+
+
+<body>
+
+  <div class="nav-container">
+    <nav class="navbar navbar-dark navbar-expand-lg nav-bar">
+          <a class="navbar-brand" href="" ><div class="logo">Scriblio</div></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+  
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">ABOUT US</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">CONTACT US</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/contact">
+                    <label class="switch" title="click to change mode">
+                      <input type="checkbox" onclick="theme();">
+                      <span class="slider round"></span>
+                    </label>
+                  </a>
+              </li>
+              <% if(!user) {%>
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">
+                    LOGIN
+                  </a>
+                </li>
+              <% }else{ %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/logout">
+                    LOGOUT
+                  </a>
+                </li>
+                <% } %>
+            </ul>
+         </div>
+      </nav>
+    
+  </div>
+
+<section id="header" class="container-fluid">
+  <div class="hero-text">
+      <h1 class="main-heading">Stay curious.</h1>
+      <p class="intor">Explore a world of captivating stories, diverse perspectives, and insightful expertise. Scriblio is your destination to indulge in the joy of reading while connecting with a vibrant community of writers and thinkers.</p>
+      
+      <% if(user) {%>
+        <a href="#posts"><button class="explore-btn">Explore</button> </a>
+         <% }else{ %>
+      <a href="/login"><button class="explore-btn">Login</button></a>
+      <a href="/register"><button class="explore-btn">Register</button></a>
+         <% } %>
+  </div>
+  <div class="hero-image">
+      <img src="images/hero-image1.png" alt="" class="hero-img">
+  </div>
+</section>
+    
+<section id="posts" >
+
+  <h1 class="post-heading container-fluid">Some of our blogs</h1>
+  <div class="post-container">
+    <%  posts.forEach(function(post){ %>
+      <div class="card">
+        <img class="card-img-top" src="/images/square.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h4 class="card-title"><%=post.title%></h4>
+          <p class="card-text">
+             <%=post.content.substring(0, 150) + " ..."%>
+            <a href="/posts/<%=post.title%>" title="click to read more">Read More </a>
+          </p>
+        </div>
+      </div>
+  
+      <% }) %>
+  </div>
+</section>
+
+    <% if(user){ %>
+    <a href="/compose" title="click to write a new post"><button class="compose"><span class="fa-solid fa-pen"></span> Compose</button></a>
+    <% } %>
+    <h1> <%= startingContent %> </h1>
+    <%- include("partials/footer"); -%>
