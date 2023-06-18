@@ -1,12 +1,75 @@
+
 <%- include("partials/header"); -%>
-<link rel="stylesheet" href="css/about.css">
 
-<header>
-  <h1 class="page-title"><%=title%></h1>
-  <p></p>
-</header>
-<section class="content">
-  <%=content%>
-</section>
 
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
+  pre {
+    white-space: pre-wrap;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+  }
+</style>
+
+<div class="wrapper">
+  <div class="post">
+    <header>
+      <h1 class="page-title"><%=title%></h1>
+      <p></p>
+    </header>
+    <section class="content">
+      <% content = content.trim(); %>
+      <pre>
+        <%- content %>
+        <p><span>Written by:-</span> <%- author %></p>
+      </pre>
+      <div class="social-response">
+        <span class="like-option"><i class="fa-regular fa-heart"></i><br> 50</span>
+        <span class="comment-option"><i class="fa-regular fa-comment"></i><br><%= comments.length %></span>
+        <span class="share-option" onclick="showShareMenu('<%= title %>')"><i class="fa-solid fa-share"></i><br>50</span>
+      </div>
+    </section>
+
+
+  </div>
+  <hr style="height: 8px; width: 100%;">
+  <div class="comment-container">
+    <div class="add-comment">
+      <form action="/comment" method="post">
+        <input type="hidden" name="postTitle" value="<%= title %>">
+        <input autocomplete="off" type="text" id="commentInput" placeholder="write a comment..." name="comment">
+     </form>  
+    </div>
+      <% comments.forEach((comment)=>{ %>
+        <div class="comment-body">
+          <div class="comment">
+              <img src="/images/profile.png" alt=""> <span class="comment-honer"><%= comment.user.name %></span>
+              <p class="comment-content"><%= comment.user.comment %></p>
+              <span class="reply-link">reply</span> <span class="see-more-link" href="">view <%= comment.replies.length %> replies</span>
+          </div>
+          <div class="comment-replies hidden">
+
+            <% comment.replies.forEach((reply)=>{ %>
+                <div class="comment-reply">
+                <img src="/images/profile.png" alt=""> <span class="reply-honer"><%= reply.name %></span>
+                  <p class="reply-content"><%= reply.reply%></p>
+                  <!-- <a href="#">reply</a> -->
+              </div>
+           <% }) %>
+               
+          </div>
+          <div class="add-reply hidden">
+            <form action="/comment/reply" method="post">
+                <input type="hidden" name="postTitle" value="<%= title %>">
+                <input type="hidden" name="commentId" value="<%= comment._id %>">
+                <input type="text" name="reply" placeholder="write reply...">
+            </form>
+          </div>
+      </div>
+      <%})%>
+      
+  </div>
+</div>
+<script src="/script/comment.js"></script>
 <%- include("partials/footer"); -%>

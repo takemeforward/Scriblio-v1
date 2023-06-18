@@ -49,7 +49,29 @@ const blogSchema = new mongoose.Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  }
+  },
+  comments: [
+    {
+      user: {
+        id:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+          },
+        name: String,
+        comment: String
+    },
+    replies: [
+        {
+            id: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User'
+              },
+            name: String,
+            reply: String
+        }
+    ]
+    }
+  ]
 });
 
 const Blog = mongoose.model('Blog', blogSchema);

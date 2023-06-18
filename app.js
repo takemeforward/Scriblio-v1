@@ -11,7 +11,11 @@ const googleStrategy = require("passport-google-oauth20").Strategy;
 
 const { User, Blog, Visiter } = require('./models');
 // mongoose.connect("mongodb://127.0.0.1:27017/blogr").then(() => console.log("Connected! blogr"));
-mongoose.connect("mongodb+srv://takemeforward:ERRORinPASSWORD30@cluster0.yi2ewuw.mongodb.net/ScriblioDB").then(()=> console.log("Connected to atlas database"));
+async function connectMongoose(){
+ await mongoose.connect("mongodb+srv://takemeforward:ERRORinPASSWORD30@cluster0.yi2ewuw.mongodb.net/ScriblioDB").then(()=> console.log("Connected to atlas database"));
+}
+
+connectMongoose();
 const app = express();
 
 
@@ -67,10 +71,10 @@ let pageVisiter = 0;
 app.get("/", async function (req, res) {
   try {
     pageVisiter++;
-    const posts = await Blog.find();
+    const blogs = await Blog.find();
     res.render("home", {
       startingContent: pageVisiter,
-      posts: posts,
+      posts: blogs,
       user: req.user
     });
   } catch (err) {
@@ -225,24 +229,87 @@ app.post("/compose", async (req, res) => {
 
 // full view of post blog
 app.get("/posts/:postName", async function (req, res) {
-  const requestedTitle = _.lowerCase(req.params.postName);
-  try {
-    const posts = await Blog.find();
-    posts.forEach(function (post) {
-      const storedTitle = _.lowerCase(post.title);
-
-      if (storedTitle === requestedTitle) {
-        res.render("post", {
-          title: post.title,
-          content: post.content,
-        });
-      }
+  await Blog.findOne({title: req.params.postName})
+  .populate({
+    path: 'author',
+    select: 'firstName lastName',
+    model: 'User'
+  })
+  .exec()
+  .then((blog) => {
+    // console.log(blog.comments[0].user.id);
+    // blog.content.replace('\n','<br>');
+      res.render("post", {
+      title: blog.title,
+      content: blog.content,
+      comments: blog.comments,
+      author: blog.author.firstName + " " + blog.author.lastName
     });
-  } catch (err) {
-    console.log("An error occurred", err);
-  }
+    // console.log('Blog:', blog);
+    // console.log('Author Name:', blog.author.firstName, blog.author.lastName);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 });
 
+app.post("/comment",async (req, res)=>{
+  if(req.isAuthenticated()){
+    const name = req.user.firstName + " " + req.user.lastName;
+    console.log(req.body);
+    const comment = {
+      user: {
+        id: req.user.id,
+        name: name,
+        comment: req.body.comment
+      },
+      replies: []
+    }
+    await Blog.findOne({title: req.body.postTitle})
+    .exec()
+    .then((blog) => {
+      blog.comments.push(comment);
+      blog.save();
+      res.redirect(`/posts/${req.body.postTitle}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }else{
+    res.redirect(`/posts/${req.body.postTitle}`);
+  }
+  
+});
+
+app.post("/comment/reply", async (req, res)=>{
+  if(req.isAuthenticated()){
+  const name = req.user.firstName + " " + req.user.lastName;
+
+  const reply = {
+    id: req.user.id,
+    name: name,
+    reply: req.body.reply
+  }
+  await Blog.findOne({title: req.body.postTitle})
+    .exec()
+    .then((blog) => {
+      blog.comments.forEach((comment)=>{
+        console.log(comment._id);
+        if(comment._id == req.body.commentId){
+          console.log(comment._id);
+          comment.replies.push(reply);
+        }
+      })
+      blog.save();
+      res.redirect(`/posts/${req.body.postTitle}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }else{
+    res.redirect(`/posts/${req.body.postTitle}`);
+  }
+})
 app.listen(3000, function () {
   console.log("Server started on port 3000");
 });
