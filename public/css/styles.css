@@ -114,9 +114,20 @@ body {
   bottom: 0;
   width: 100%;
 }
-.footer{
+footer{
   text-align: center;
   color: white;
+}
+.social{
+	zoom: 150%;
+	padding: 1rem 1rem;
+	color: white;
+	filter: brightness(.7);
+}
+.social:hover{
+	cursor: pointer;
+	filter: brightness(1);
+	
 }
 .container-fluid{
 
