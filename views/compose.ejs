@@ -6,9 +6,24 @@
         <label>Title</label>
         <input class="form-control" type="text" name="postTitle">
         <label>Post</label>
-        <textarea class="form-control" name="postContent" rows="5" cols="30"></textarea>
+        <textarea id="myTextarea" class="form-control" name="postContent" rows="10" cols="30"></textarea>
       </div>
       <button class="btn btn-primary" type="submit" name="button">Publish</button>
     </form>
 
+    <script>
+       tinymce.init({
+      selector: '#myTextarea',
+      plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+      tinycomments_mode: 'embedded',
+      height: 400,
+      tinycomments_author: 'Author name',
+      mergetags_list: [
+        { value: 'First.Name', title: 'First Name' },
+        { value: 'Email', title: 'Email' },
+      ],
+    });
+    </script>
+    
 <%- include("partials/footer"); -%>

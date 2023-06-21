@@ -50,34 +50,67 @@ const blogSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  comments: [
+  dateTime:{
+      type: Date,
+      default: Date.now
+  }
+});
+const Blog = mongoose.model('Blog', blogSchema);
+
+const commentSchema = new mongoose.Schema({
+  user:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  post:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Blog'
+  },
+  comment: String,
+  dateTime:{
+    type: Date,
+    default: Date.now
+  },
+  replies: [
     {
-      user: {
-        id:{
+        user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
           },
-        name: String,
-        comment: String
-    },
-    replies: [
-        {
-            id: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
-              },
-            name: String,
-            reply: String
-        }
-    ]
+        reply: String,
+        dateTime:{
+          type: Date,
+          default: Date.now
+      }
     }
   ]
 });
 
-const Blog = mongoose.model('Blog', blogSchema);
+const Comment = mongoose.model('Comment', commentSchema);
+
+const likeSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  postId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Blog',
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+const Like = mongoose.model('Like', likeSchema);
 
 module.exports = {
   User,
   Blog,
-  Visiter
+  Visiter,
+  Comment,
+  Like
 };

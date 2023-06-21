@@ -12,62 +12,78 @@
   }
 </style>
 
+<% const title = blog.title; const id = blog._id; const content = blog.content; const author = blog.author.firstName + " " + blog.author.lastName; %>
 <div class="wrapper">
+  <div id="page-error" class="hidden"></div>
   <div class="post">
     <header>
-      <h1 class="page-title"><%=title%></h1>
+      <h1 class="page-title"><%= title %></h1>
       <p></p>
     </header>
     <section class="content">
-      <% content = content.trim(); %>
       <pre>
-        <%- content %>
-        <p><span>Written by:-</span> <%- author %></p>
+        <%- content -%>
+        <p><span>Written by:-</span> <%= author %></p>
       </pre>
       <div class="social-response">
-        <span class="like-option"><i class="fa-regular fa-heart"></i><br> 50</span>
-        <span class="comment-option"><i class="fa-regular fa-comment"></i><br><%= comments.length %></span>
-        <span class="share-option" onclick="showShareMenu('<%= title %>')"><i class="fa-solid fa-share"></i><br>50</span>
+        <form id="likeForm" action="/like" method="post">
+          <input type="hidden" name="liked" value="true"></input>
+          <input type="hidden" name="postId" value="<%= id %>"> </input>
+          <span class="like-option" >
+            <% if(liked.length==0) {%>
+            <i class="fa-regular fa-heart"></i> <br> <%= postLikes.length %>
+            <%}else{ %>
+              <i class="fa-solid color-red fa-heart"></i> <br> <%= postLikes.length %>
+            <% } %>
+          </span>
+        </form>
+        
+        <span class="comment-option"><i class="fa-regular fa-comment"></i><br> <%= comments.length %></span>
+        <span class="share-option" onclick="showShareMenu('')"><i class="fa-solid fa-share"></i><br>50</span>
       </div>
     </section>
 
 
   </div>
-  <hr style="height: 8px; width: 100%;">
-  <div class="comment-container">
+  <hr>
+  <div class="comment-container" id="cont">
     <div class="add-comment">
-      <form action="/comment" method="post">
-        <input type="hidden" name="postTitle" value="<%= title %>">
+      <form id="commentForm" action="/comment" method="post">
+        <input type="hidden" name="postId" value="<%= id %>"> </input>
         <input autocomplete="off" type="text" id="commentInput" placeholder="write a comment..." name="comment">
      </form>  
     </div>
-      <% comments.forEach((comment)=>{ %>
-        <div class="comment-body">
-          <div class="comment">
-              <img src="/images/profile.png" alt=""> <span class="comment-honer"><%= comment.user.name %></span>
-              <p class="comment-content"><%= comment.user.comment %></p>
-              <span class="reply-link">reply</span> <span class="see-more-link" href="">view <%= comment.replies.length %> replies</span>
-          </div>
-          <div class="comment-replies hidden">
 
-            <% comment.replies.forEach((reply)=>{ %>
-                <div class="comment-reply">
-                <img src="/images/profile.png" alt=""> <span class="reply-honer"><%= reply.name %></span>
-                  <p class="reply-content"><%= reply.reply%></p>
-                  <!-- <a href="#">reply</a> -->
-              </div>
-           <% }) %>
-               
-          </div>
-          <div class="add-reply hidden">
-            <form action="/comment/reply" method="post">
-                <input type="hidden" name="postTitle" value="<%= title %>">
-                <input type="hidden" name="commentId" value="<%= comment._id %>">
-                <input type="text" name="reply" placeholder="write reply...">
-            </form>
-          </div>
-      </div>
-      <%})%>
+
+        <div class="comment-body" id="cBody">
+          <% comments.forEach((comment)=>{ %>
+            <div class="comment">
+                <img src="/images/profile.png" alt=""> <span class="comment-honer"><%= comment.user.firstName + " " + comment.user.lastName %></span>
+                <p class="comment-content"> <%= comment.comment %></p>
+                <span class="reply-link">reply</span> <span class="see-more-link" href="">view replies</span>
+            </div>
+            <div class="comment-replies hidden">
+
+                <% comment.replies.forEach((reply)=>{ %>
+                  <div class="comment-reply">
+                    <img src="/images/profile.png" alt=""> <span class="reply-honer"> <%= reply.user.firstName + " " +reply.user.lastName %> </span>
+                      <p class="reply-content"> <%= reply.reply %></p>
+                      <!-- <a href="#">reply</a> -->
+                  </div>
+                <% }) %>
+                
+            </div>
+            <div class="add-reply hidden">
+              <form action="/comment/reply" method="post">
+                <input type="hidden" name="postId" value="<%= id %>"> </input>
+                  <input type="hidden" name="commentId" value="<%= comment._id %>">
+                  <input type="text" name="reply" placeholder="write reply...">
+              </form>
+            </div>
+          <% }) %>
+        </div>
+      
+
       
   </div>
 </div>

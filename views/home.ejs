@@ -85,16 +85,23 @@
   <h1 class="post-heading container-fluid">Some of our blogs</h1>
   <div class="post-container">
     <%  posts.forEach(function(post){ %>
+      <a href="/posts/<%=post._id%>" title="click to read more">
       <div class="card">
         <img class="card-img-top" src="/images/square.jpg" alt="Card image cap">
         <div class="card-body">
-          <h4 class="card-title"><%=post.title%></h4>
+          <%if(post.title.length < 50){%>
+            <h4 class="card-title"><%- post.title %></h4>
+          <%}else{%>
+            <h4 class="card-title"><%- post.title.substring(0,60) + "..." %></h4>
+          <%}%>
+          
           <p class="card-text">
-             <%=post.content.substring(0, 150) + " ..."%>
-            <a href="/posts/<%=post.title%>" title="click to read more">Read More </a>
+             <%- post.content.substring(0, 0) + "" -%>
+            
           </p>
         </div>
       </div>
+      </a>
   
       <% }) %>
   </div>
@@ -103,5 +110,5 @@
     <% if(user){ %>
     <a href="/compose" title="click to write a new post"><button class="compose"><span class="fa-solid fa-pen"></span> Compose</button></a>
     <% } %>
-    <h1> <%= startingContent %> </h1>
+    <h1> <%- startingContent %> </h1>
     <%- include("partials/footer"); -%>

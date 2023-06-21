@@ -5,11 +5,12 @@ const ejs = require("ejs");
 const _ = require("lodash");
 const mongoose = require("mongoose");
 const session = require("express-session");
+
 // const session = require("cookie-session");
 const passport = require("passport");
 const googleStrategy = require("passport-google-oauth20").Strategy;
 
-const { User, Blog, Visiter } = require('./models');
+const { User, Blog, Visiter,Comment, Like } = require('./models');
 // mongoose.connect("mongodb://127.0.0.1:27017/blogr").then(() => console.log("Connected! blogr"));
 async function connectMongoose(){
  await mongoose.connect("mongodb+srv://takemeforward:ERRORinPASSWORD30@cluster0.yi2ewuw.mongodb.net/ScriblioDB").then(()=> console.log("Connected to atlas database"));
@@ -228,8 +229,25 @@ app.post("/compose", async (req, res) => {
 });
 
 // full view of post blog
-app.get("/posts/:postName", async function (req, res) {
-  await Blog.findOne({title: req.params.postName})
+app.get("/posts/:postId", async function (req, res) {
+  let liked = [];
+  let postLikes = await Like.find({postId: req.params.postId});
+  if(req.isAuthenticated()){
+    liked = await Like.find({postId: req.params.postId, userId: req.user._id});
+  console.log(liked);
+  }
+  const comments = await Comment.find({post: req.params.postId})
+  .populate({
+    path: 'user',
+    select: 'firstName lastName',
+    model: 'User'
+  })
+  .populate({
+    path: 'replies.user', // Corrected path
+    select: 'firstName lastName',
+    model: 'User'
+  });
+  await Blog.findById(req.params.postId)
   .populate({
     path: 'author',
     select: 'firstName lastName',
@@ -237,79 +255,95 @@ app.get("/posts/:postName", async function (req, res) {
   })
   .exec()
   .then((blog) => {
-    // console.log(blog.comments[0].user.id);
-    // blog.content.replace('\n','<br>');
-      res.render("post", {
-      title: blog.title,
-      content: blog.content,
-      comments: blog.comments,
-      author: blog.author.firstName + " " + blog.author.lastName
-    });
-    // console.log('Blog:', blog);
+
+      res.render("post", {blog: blog, comments: comments, liked: liked, postLikes: postLikes});
     // console.log('Author Name:', blog.author.firstName, blog.author.lastName);
   })
   .catch((err) => {
     console.log(err);
   });
-});
-
-app.post("/comment",async (req, res)=>{
-  if(req.isAuthenticated()){
-    const name = req.user.firstName + " " + req.user.lastName;
-    console.log(req.body);
-    const comment = {
-      user: {
-        id: req.user.id,
-        name: name,
-        comment: req.body.comment
-      },
-      replies: []
-    }
-    await Blog.findOne({title: req.body.postTitle})
-    .exec()
-    .then((blog) => {
-      blog.comments.push(comment);
-      blog.save();
-      res.redirect(`/posts/${req.body.postTitle}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }else{
-    res.redirect(`/posts/${req.body.postTitle}`);
-  }
   
 });
 
-app.post("/comment/reply", async (req, res)=>{
-  if(req.isAuthenticated()){
-  const name = req.user.firstName + " " + req.user.lastName;
-
-  const reply = {
-    id: req.user.id,
-    name: name,
-    reply: req.body.reply
+// compose blog post route
+app.post("/comment", async (req, res) => {
+  try {
+    const newComment = new Comment({
+      user: req.user._id,
+      post: req.body.postId,
+      comment: req.body.comment
+    });
+    const result = await newComment.save();
+    if (result) {
+      res.json({newComment});
+    } else {
+      console.log("Having some issue with posting Blog");
+    }
+  } catch (err) {
+    console.log("An error occurred", err);
   }
-  await Blog.findOne({title: req.body.postTitle})
-    .exec()
-    .then((blog) => {
-      blog.comments.forEach((comment)=>{
-        console.log(comment._id);
-        if(comment._id == req.body.commentId){
-          console.log(comment._id);
-          comment.replies.push(reply);
+});
+
+app.post("/comment/reply", async (req, res) => {
+  try {
+    const newReply = {
+      user: req.user._id,
+      reply: req.body.reply
+    };
+
+    Comment.findById(req.body.commentId)
+    .then((comment)=>{
+      console.log(comment);
+      comment.replies.push(newReply);
+      comment.save();
+      
+    })
+  } catch(err){
+    console.log("An error occured")
+  }
+  res.redirect(`/posts/${req.body.postId}`);
+});
+
+app.post("/like", (req, res)=>{
+  if(req.isAuthenticated()){
+
+    const newLike = new Like({
+      userId: req.user._id,
+      postId: req.body.postId
+    });
+    
+    Like.findOneAndDelete({ userId: req.user._id, postId: req.body.postId })
+      .then((result) => {
+        if (result) {
+          console.log("User removed from liked list");
+          res.json(false);
+        } else {
+          newLike.save()
+            .then(() => {
+              console.log("User added to liked list");
+              res.json(true);
+            })
+            .catch((error) => {
+              console.log("Error occurred while saving the like:", error);
+            });
         }
       })
-      blog.save();
-      res.redirect(`/posts/${req.body.postTitle}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .catch((error) => {
+        console.log("Error occurred while finding the like:", error);
+      });
+    
   }else{
-    res.redirect(`/posts/${req.body.postTitle}`);
+
   }
 })
+
+
+app.get("/userinfo", (req, res)=>{
+  if(req.isAuthenticated()){
+    const userLoginInfo = req.user;
+    res.json(userLoginInfo);
+    }
+});
 app.listen(3000, function () {
   console.log("Server started on port 3000");
 });

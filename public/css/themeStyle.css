@@ -62,11 +62,11 @@
   }
   .dark-mode{
       color: white;
-      background-color: black;
+      background-color: rgb(44, 44, 44);
       
   }
   .card-dark{
-    background-color: rgb(61, 61, 61);
-    border: 4px solid rgb(34, 33, 33);
+    background-color: rgb(55, 55, 55);
+    border: 4px solid rgb(45, 45, 45);
     color: white;
   }
