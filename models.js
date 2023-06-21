@@ -50,11 +50,16 @@ const blogSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  dateTime:{
-      type: Date,
-      default: Date.now
+  dateTime: {
+    type: Date,
+    default: Date.now
+  },
+  image: {
+    data: Buffer,
+    contentType: String
   }
 });
+
 const Blog = mongoose.model('Blog', blogSchema);
 
 const commentSchema = new mongoose.Schema({

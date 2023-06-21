@@ -87,7 +87,9 @@
     <%  posts.forEach(function(post){ %>
       <a href="/posts/<%=post._id%>" title="click to read more">
       <div class="card">
-        <img class="card-img-top" src="/images/square.jpg" alt="Card image cap">
+        <% if(post.image && post.image.data) { %>
+        <img class="card-img-top" src="data:<%= post.image.contentType %>;base64,<%= post.image.data.toString('base64') %>" alt="Card image cap">
+        <% } %>
         <div class="card-body">
           <%if(post.title.length < 50){%>
             <h4 class="card-title"><%- post.title %></h4>

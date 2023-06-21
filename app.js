@@ -5,7 +5,10 @@ const ejs = require("ejs");
 const _ = require("lodash");
 const mongoose = require("mongoose");
 const session = require("express-session");
-
+const multer = require('multer');   // to manage image upload
+// Configure Multer for image uploads
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 // const session = require("cookie-session");
 const passport = require("passport");
 const googleStrategy = require("passport-google-oauth20").Strategy;
@@ -135,22 +138,6 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-// post Login
-// app.post("/login", (req, res) => {
-//   const user = new User(req.body);
-
-//   req.login(user, (err) => {
-//     if (err) {
-//       console.log(err);
-//       res.redirect("/login");
-//     } else {
-//       passport.authenticate("local")(req, res, () => {
-//         res.redirect("/");
-//       });
-//     }
-//   });
-// });
-
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
@@ -210,15 +197,23 @@ app.get("/compose", (req, res) => {
 });
 
 // compose blog post route
-app.post("/compose", async (req, res) => {
+app.post("/compose", upload.single('postImage'), async (req, res) => {
+  
   try {
+    console.log("try me hu");
     const newBlog = new Blog({
       title: req.body.postTitle,
       content: req.body.postContent,
-      author: req.user._id
+      author: req.user._id,
+      image: {
+        data: req.file.buffer,
+        contentType: req.file.mimetype
+      }
     });
+    console.log("save is just pahle");
     const result = await newBlog.save();
     if (result) {
+      console.log("save hua");
       res.redirect("/");
     } else {
       console.log("Having some issue with posting Blog");
