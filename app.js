@@ -56,7 +56,7 @@ passport.deserializeUser(async function (id, done) {
 passport.use(new googleStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: "http://localhost:3000/auth/google/scriblio"
+  callbackURL: "https://scriblio.onrender.com/auth/google/scriblio"
 },
 function(accessToken, refreshToken, profile, cb) {
   // console.log(profile);
