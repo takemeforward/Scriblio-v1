@@ -75,7 +75,12 @@ let pageVisiter = 0;
 app.get("/", async function (req, res) {
   try {
     pageVisiter++;
-    const blogs = await Blog.find();
+    const blogs = await Blog.find()
+    .populate({
+      path: 'author',
+      select: 'firstName lastName',
+      model: 'User'
+    });
     res.render("home", {
       startingContent: pageVisiter,
       posts: blogs,
@@ -314,9 +319,14 @@ app.post("/like", (req, res)=>{
           res.json(false);
         } else {
           newLike.save()
-            .then(() => {
+            .then((e) => {
               console.log("User added to liked list");
-              res.json(true);
+              if(e){
+                res.json(true);
+              }else{
+                res.json(false);
+              }
+              
             })
             .catch((error) => {
               console.log("Error occurred while saving the like:", error);

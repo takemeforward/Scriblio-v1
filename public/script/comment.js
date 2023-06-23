@@ -17,7 +17,7 @@ for(let i = 0; i<seeMoreLink.length; i++){
 const like = document.querySelector(".fa-heart");
 like.addEventListener("click", ()=>{
   like.classList.toggle("fa-solid");
-  like.classList.add("fa-bounce");
+  like.classList.toggle("fa-bounce");
   like.classList.toggle("color-red");
   setTimeout(() => {
     like.classList.remove("fa-bounce");
@@ -48,11 +48,18 @@ like.addEventListener("click", ()=>{
                 like.classList.add("fa-solid");
                 like.classList.remove("fa-regular");
                 like.classList.add("color-red");
+                const likeCount = document.getElementById("like-count").innerHTML;
+                document.getElementById("like-count").innerHTML = (Number(likeCount) + 1);  // update like on the go
+                console.log(Number(likeCount) + 1);
 
         }else{
                 like.classList.add("fa-regular");
                 like.classList.remove("fa-solid");
                 like.classList.remove("color-red");
+                const likeCount = document.getElementById("like-count").innerHTML;
+                document.getElementById("like-count").innerHTML = (Number(likeCount) - 1);  // update like on the go
+                console.log(Number(likeCount) - 1);
+                
                 
         }
         // Update the page dynamically based on the response

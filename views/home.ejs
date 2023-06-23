@@ -14,7 +14,12 @@
  <%- include("partials/resource") -%>
 
 
-
+<style>
+  #header{
+    background-image: url('/images/background.png');
+    background-size: cover;
+  }
+</style>
 
 <body>
 
@@ -64,21 +69,22 @@
   </div>
 
 <section id="header" class="container-fluid">
-  <div class="hero-text">
-      <h1 class="main-heading">Stay curious.</h1>
-      <p class="intor">Explore a world of captivating stories, diverse perspectives, and insightful expertise. Scriblio is your destination to indulge in the joy of reading while connecting with a vibrant community of writers and thinkers.</p>
-      
-      <% if(user) {%>
-        <a href="#posts"><button class="explore-btn">Explore</button> </a>
-         <% }else{ %>
-      <a href="/login"><button class="explore-btn">Login</button></a>
-      <a href="/register"><button class="explore-btn">Register</button></a>
-         <% } %>
-  </div>
   <div class="hero-image">
-      <img src="images/hero-image1.png" alt="" class="hero-img">
+      
   </div>
+  <div class="hero-text">
+    <h1 class="main-heading">Stay curious.</h1>
+    <p class="intor">Explore a world of captivating stories, diverse perspectives, and insightful expertise. Scriblio is your destination to indulge in the joy of reading while connecting with a vibrant community of writers and thinkers.</p>
+    
+    <% if(user) {%>
+      <a href="#posts"><button class="explore-btn">Explore</button> </a>
+       <% }else{ %>
+    <a href="/login"><button class="explore-btn">Login</button></a>
+    <a href="/register"><button class="explore-btn">Register</button></a>
+       <% } %>
+</div>
 </section>
+<div class="cutter"></div>
     
 <section id="posts" >
 
@@ -91,6 +97,7 @@
         <img class="card-img-top" src="data:<%= post.image.contentType %>;base64,<%= post.image.data.toString('base64') %>" alt="Card image cap">
         <% } %>
         <div class="card-body">
+          <p class="author"> <%=post.author.firstName + " " + post.author.lastName %></p>
           <%if(post.title.length < 50){%>
             <h4 class="card-title"><%- post.title %></h4>
           <%}else{%>
@@ -110,7 +117,7 @@
 </section>
 
     <% if(user){ %>
-    <a href="/compose" title="click to write a new post"><button class="compose"><span class="fa-solid fa-pen"></span> Compose</button></a>
+    <a href="/compose" title="click to write a new post"><button class="compose btn"><span class="fa-solid fa-pen-to-square"></span> Compose</button></a>
     <% } %>
     <h1> <%- startingContent %> </h1>
     <%- include("partials/footer"); -%>

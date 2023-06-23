@@ -1,0 +1,65 @@
+#composeForm input{
+  
+    box-shadow: 0 0 0;
+}
+#composeForm{
+    margin-bottom: 3rem;
+}
+
+#image-upload-preview{
+    margin: 4% 0;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    border: 1px solid rgb(199, 199, 199);
+    max-height: 500px;
+}
+#myTextarea{
+    
+}
+input[name="postTitle"]{
+    margin-bottom: 1rem;
+
+}
+  
+#image-preview img{
+    box-sizing: border-box;
+    width: 500px;
+    max-height: 100%;
+    overflow: hidden;
+}
+#image-upload{
+    width: 30%;
+}
+#compose-heading{
+    margin-top: 3rem;
+}
+  /* Styling for the file input */
+  input[type="file"] {
+
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #555;
+    font-size: 14px;
+  }
+  
+.btn{
+    background-color: var(--color-primary);
+    color: white;
+}
+
+  
+  /* Optional: Style the file input on hover */
+  input[type="file"]:hover {
+    background-color: #f2f2f2;
+  }
+  
+  /* Optional: Style the file input on focus */
+  input[type="file"]:focus {
+    outline: none;
+    box-shadow: 0 0 3px 1px #007bff;
+  }
+  

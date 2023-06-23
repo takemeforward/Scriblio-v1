@@ -1,6 +1,6 @@
 :root{
-	--color-primary: #24243d;
-	--color-secondry: #E9F8F9;
+	--color-primary: #cf550d;
+	--color-secondry: #fff;
 	--color-ternary: #537FE7;
     --color-red: rgb(161, 36, 36);
 }
@@ -20,14 +20,26 @@ body{
 	margin: 0 auto;
 }
 .nav-container{
-	background-color: var(--color-primary);
+	background-color: white;
+	position: relative;
+	/* background-color: var(--color-primary); */
 }
+.nav-container::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 4px; /* Adjust the height of the shadow as desired */
+	background-color: rgba(0, 0, 0, 0.1); /* Adjust the shadow color and transparency as desired */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adjust the shadow properties as desired */
+  }
 .nav-link{
 	/* text-decoration: none; */
-	color: rgb(219, 214, 214) !important;
+	color: rgb(0, 0, 0) !important;
 }
 .nav-link:hover{
-	color:  rgb(192, 188, 188) !important;
+	background-color: rgb(224, 224, 224) !important;
 }
 .nav-item, .navbar-brand div{
 	padding: 0 1rem;

@@ -1,32 +1,76 @@
 
 <%- include("partials/header"); -%>
-    <h1>Compose</h1>
-    <form class="" action="/compose" method="post" enctype="multipart/form-data">
+
+<link rel="stylesheet" href="/css/composePost.css">
+    <h1 id="compose-heading">Create Your Masterpiece on Scriblio: Compose Post</h1>
+  
+    <form id="composeForm" action="/compose" method="post" enctype="multipart/form-data">
       <div class="form-group">
-        <label>Title</label>
-        <input class="form-control" type="text" name="postTitle">
-        <label>Post</label>
+        <label for="postTitle">Title</label>
+        <input class="form-control" type="text" name="postTitle" id="postTitle" autocomplete="off">
+
         <textarea id="myTextarea" class="form-control" name="postContent" rows="10" cols="30"></textarea>
-        <label>Image</label>
-        <input type="file" name="postImage">
+        <p></p>
+        <div id="image-upload-preview">
+          <div id="image-preview"></div>
+          <div id="image-upload">
+            <label for="post-picture">Choose a cover Image:</label>
+            <input type="file" name="postImage" id="post-picture" accept="image/*">
+          </div>
       </div>
-      <button class="btn btn-primary" type="submit" name="button">Publish</button>
+
+
+      </div>
+      <button class="btn" type="submit" name="button" title="Publish"> Publish <i class="fa-solid fa-paper-plane"> </i></button>
+      <i class="fa-sharp fa-solid fa-paper-plane-top"></i>
     </form>
     
 
     <script>
-       tinymce.init({
-      selector: '#myTextarea',
-      plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
-      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-      tinycomments_mode: 'embedded',
-      height: 400,
-      tinycomments_author: 'Author name',
-      mergetags_list: [
-        { value: 'First.Name', title: 'First Name' },
-        { value: 'Email', title: 'Email' },
-      ],
-    });
+      tinymce.init({
+        selector: '#myTextarea',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode tinycomments',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | addcomment showcomments | spellcheckdialog a11ycheck | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        min_height: 400,
+        tinycomments_author: 'Author name',
+        mergetags_list: [
+          { value: 'First.Name', title: 'First Name' },
+          { value: 'Email', title: 'Email' },
+        ],
+      });
+
+        // Get references to the file input and image preview elements
+        const fileInput = document.getElementById('post-picture');
+        const imagePreview = document.getElementById('image-preview');
+
+        // Add an event listener to the file input
+        fileInput.addEventListener('change', function (event) {
+          const file = event.target.files[0]; // Get the selected file
+
+          // Check if a file is selected
+          if (file) {
+            const reader = new FileReader(); // Create a FileReader object
+
+            // Set up the FileReader onload event
+            reader.onload = function (e) {
+              // Create an image element
+              const img = document.createElement('img');
+              img.src = e.target.result; // Set the source of the image to the FileReader result
+
+              // Append the image element to the image preview div
+              imagePreview.innerHTML = '';
+              imagePreview.appendChild(img);
+            };
+
+            // Read the file as a data URL
+            reader.readAsDataURL(file);
+          } else {
+            // No file selected, clear the image preview
+            imagePreview.innerHTML = '';
+          }
+        });
+
     </script>
     
-<%- include("partials/footer"); -%>
+</div>

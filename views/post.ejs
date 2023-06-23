@@ -31,7 +31,7 @@
           <input type="hidden" name="postId" value="<%= id %>"> </input>
           <span class="like-option" >
             <% if(liked.length==0) {%>
-            <i class="fa-regular fa-heart"></i> <br> <%= postLikes.length %>
+            <i class="fa-regular fa-heart"></i> <br> <span id="like-count"><%= postLikes.length %></span>
             <%}else{ %>
               <i class="fa-solid color-red fa-heart"></i> <br> <%= postLikes.length %>
             <% } %>
@@ -88,4 +88,4 @@
   </div>
 </div>
 <script src="/script/comment.js"></script>
-<%- include("partials/footer"); -%>
+</div>

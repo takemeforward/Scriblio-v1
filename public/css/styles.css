@@ -33,7 +33,7 @@ body {
   justify-content: center;
   align-items: center;
   /* gap: 1rem; */
-  min-height: 65vh;
+  min-height: 500px;
 }
 #header .hero-text{
   /* color: #c30f3c; */
@@ -71,6 +71,16 @@ body {
   text-align: right !important;
   width: 49%;
 }
+.cutter{
+  width: 100%;
+  height: 10vh;
+  /* border-radius: 100% 100% 0 0; */
+  border-top-left-radius: 50% 40%;
+  border-top-right-radius: 50% 40%;
+  background-color: white;
+  position: relative;
+  top: -15vh
+}
 
 .explore-btn{
   margin-top: 36px;
@@ -85,6 +95,7 @@ body {
 #posts{
   margin-top: 2rem;
 }
+
 .compose{
   z-index: 999;
   border-radius: 40px;
@@ -110,18 +121,18 @@ body {
 }
 .footer-padding{
   padding: 2px;
-  background-color: var(--color-primary);
+  background-color: rgb(250, 154, 89);
   bottom: 0;
   width: 100%;
 }
+
 footer{
   text-align: center;
-  color: white;
 }
 .social{
 	zoom: 150%;
 	padding: 1rem 1rem;
-	color: white;
+	color: rgb(150, 185, 252);
 	filter: brightness(.7);
 }
 .social:hover{
