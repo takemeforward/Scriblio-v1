@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
+pre {
+  white-space: pre-wrap;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+}
+body{
+  background-image: url('/images/post-background1.jpg');
+}
+.wrapper{
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 70%;
+    margin: 0 auto;
+    padding: 4% 2%;
+}
+hr{
+    width: 100%;
+    overflow: hidden;
+    border: none;
+    border-top: 2px solid #615b5b;
+}
+/* social response */
+.social-response{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  
+  }
+  .like-option, .comment-option, .share-option{
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.color-red{
+    color: rgb(255, 0, 0);
+  }
+  /* social response ends */
+  /* // comment section style  */
+  .comment-container{
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    background-color: rgba(255, 255, 255, .8);
+  }
+  .add-comment input{
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+  .add-comment input:focus{
+    outline: none;
+  }
+  .comment-body{
+    width: 700px;
+    max-width: 100%;
+  }
+  
+  .comment-body{
+    padding: 2%;
+    width: inherit;
+    margin-bottom: 1rem;
+    transition: opacity 0.3s ease;
+  }
+  .comment-replies{
+    padding-left: 5%;
+  }
+  .add-reply input{
+    width: 600px;
+    max-width: 100%;
+  }
+  .add-reply input,.add-comment input{
+    padding: 4px;
+    border: 1px solid grey;
+    border-radius: 8px;
+  }
+  .comment img, .comment-reply img{
+    width: 24px;
+    border-radius: 50%;
+    margin-right: 1rem;
+  }
+  .comment-honer{
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+  .reply-honer{
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .comment-content, .reply-content{
+    margin-left: 2rem;
+  }
+  .reply-link{
+    margin-right: 1rem;
+    color: grey;
+    cursor: pointer;
+  }
+  .see-more-link{
+    margin-left: 1rems;
+    cursor: pointer;
+    color: grey;
+  }
+  .hidden{
+    opacity: 0;
+    display: none;
+  }
+  #page-error{
+    position: fixed;
+    top: 50px;
+    display: block;
+    width: 80%;
+    max-width: 100%;
+    margin: auto;
+    background-color: rgba(249, 237, 237, .8);
+    color: #721c24;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  /* /// comment section style ends */
+
+  @media (max-width: 600px) {
+    .wrapper{
+      width: 100%;
+      padding: 4%;
+      /* text-align: center; */
+    }
+    
+  }

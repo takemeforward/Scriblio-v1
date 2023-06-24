@@ -5,26 +5,30 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Scriblio | a daily Journal site</title>
   <meta charset="utf-8">
  
 
 
-
+ 
  <%- include("partials/resource") -%>
-
+ <link rel="stylesheet" href="/css/home.css">
 
 <style>
   #header{
     background-image: url('/images/background.png');
     background-size: cover;
+    /* filter: brightness(0.7); */
   }
+  
+
 </style>
 
 <body>
 
   <div class="nav-container">
-    <nav class="navbar navbar-dark navbar-expand-lg nav-bar">
+    <nav class="navbar navbar-light navbar-expand-lg nav-bar">
           <a class="navbar-brand" href="" ><div class="logo">Scriblio</div></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -84,20 +88,20 @@
        <% } %>
 </div>
 </section>
-<div class="cutter"></div>
+
     
 <section id="posts" >
 
-  <h1 class="post-heading container-fluid">Some of our blogs</h1>
-  <div class="post-container">
+  <h1 class="post-heading">Some of our blogs</h1>
+  <div class="post-container container-fluid">
     <%  posts.forEach(function(post){ %>
       <a href="/posts/<%=post._id%>" title="click to read more">
       <div class="card">
         <% if(post.image && post.image.data) { %>
-        <img class="card-img-top" src="data:<%= post.image.contentType %>;base64,<%= post.image.data.toString('base64') %>" alt="Card image cap">
+        <img class="card-img-top card-image" src="data:<%= post.image.contentType %>;base64,<%= post.image.data.toString('base64') %>" alt="Card image cap">
         <% } %>
         <div class="card-body">
-          <p class="author"> <%=post.author.firstName + " " + post.author.lastName %></p>
+          <p class="author"> By: <%=post.author.firstName + " " + post.author.lastName %></p>
           <%if(post.title.length < 50){%>
             <h4 class="card-title"><%- post.title %></h4>
           <%}else{%>

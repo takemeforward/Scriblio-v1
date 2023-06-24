@@ -234,7 +234,7 @@ app.get("/posts/:postId", async function (req, res) {
   let postLikes = await Like.find({postId: req.params.postId});
   if(req.isAuthenticated()){
     liked = await Like.find({postId: req.params.postId, userId: req.user._id});
-  console.log(liked);
+  // console.log(liked);
   }
   const comments = await Comment.find({post: req.params.postId})
   .populate({

@@ -5,8 +5,8 @@ body {
     padding: 0;
   }
   
-  .container {
-    max-width: 800px;
+  .about-container {
+    width: 80%;
     margin: 0 auto;
     padding: 20px;
   }
@@ -17,7 +17,7 @@ body {
   
   /* Header Styles */
   header {
-    background-color: #2d2d4f;
+    background-color: #b7c7bc;
     color: #fff;
     padding: 20px;
   }
@@ -34,12 +34,28 @@ body {
   
   /* Content Section Styles */
   .content {
-    margin-bottom: 40px;
+    margin: 3rem 0;
+    letter-spacing: 1px;
+    
+  }
+  .content h2, .content p{
+    margin-bottom: 1.5rem;
   }
   
   /* Developer Info Section Styles */
   .developer-info {
     padding: 20px;
+
+  }
+  .developer-info p{
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    .about-container{
+      width: 90%;
+    }
+    
   }
   
   

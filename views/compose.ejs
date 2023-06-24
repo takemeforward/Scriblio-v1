@@ -2,14 +2,17 @@
 <%- include("partials/header"); -%>
 
 <link rel="stylesheet" href="/css/composePost.css">
-    <h1 id="compose-heading">Create Your Masterpiece on Scriblio: Compose Post</h1>
+<div class="compose-container">
+  <h1 id="compose-heading">Create Your Masterpiece on Scriblio: Compose Post</h1>
   
     <form id="composeForm" action="/compose" method="post" enctype="multipart/form-data">
       <div class="form-group">
         <label for="postTitle">Title</label>
         <input class="form-control" type="text" name="postTitle" id="postTitle" autocomplete="off">
-
-        <textarea id="myTextarea" class="form-control" name="postContent" rows="10" cols="30"></textarea>
+        <div class="tinymce-container">
+          <textarea id="myTextarea" class="form-control" name="postContent" rows="10" cols="30"></textarea>
+        </div>
+        
         <p></p>
         <div id="image-upload-preview">
           <div id="image-preview"></div>
@@ -24,6 +27,8 @@
       <button class="btn" type="submit" name="button" title="Publish"> Publish <i class="fa-solid fa-paper-plane"> </i></button>
       <i class="fa-sharp fa-solid fa-paper-plane-top"></i>
     </form>
+</div>
+    
     
 
     <script>

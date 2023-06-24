@@ -50,15 +50,16 @@ like.addEventListener("click", ()=>{
                 like.classList.add("color-red");
                 const likeCount = document.getElementById("like-count").innerHTML;
                 document.getElementById("like-count").innerHTML = (Number(likeCount) + 1);  // update like on the go
-                console.log(Number(likeCount) + 1);
 
         }else{
+                
                 like.classList.add("fa-regular");
                 like.classList.remove("fa-solid");
                 like.classList.remove("color-red");
                 const likeCount = document.getElementById("like-count").innerHTML;
                 document.getElementById("like-count").innerHTML = (Number(likeCount) - 1);  // update like on the go
                 console.log(Number(likeCount) - 1);
+                window.alert("Like removed");
                 
                 
         }
@@ -120,34 +121,38 @@ comment.addEventListener("click", ()=>{
 
 
 // I may have to debug this part of code after I publish it on online paltform
-function showShareMenu(title){
-    if (navigator.share) {
-        navigator.share({
-            title: `${title}`,
-            text: 'Check out my latest blog!',
-            url: `https://localhost:3000/posts/${encodeURIComponent(title)}`,
-            socialShareOptions: {
-              whatsapp: {
-                text: 'Share on WhatsApp',
-                url: `whatsapp://send?text=Check%20out%20my%20latest%20blog!%20https%3A%2F%2Flocalhost%3A3000%2Fposts%2F${encodeURIComponent(title)}`
-              },
-              instagram: {
-                text: 'Share on Instagram',
-                url: `https://www.instagram.com/?url=https%3A%2F%2Flocalhost%3A3000%2Fposts%2F${encodeURIComponent(title)}`
-              }
-            }
-          })
-          .then(() => {
-            console.log('Shared successfully.');
-          })
-          .catch((error) => {
-            console.log('Error sharing:', error);
-          });
-      } else {
-        console.log('Web Share API not supported.');
-        // Fallback behavior or show custom share menu
+function showShareMenu(id) {
+  if (navigator.share) {
+    const title = id;
+    const url = `https://scriblio.onrender.com/posts/${encodeURIComponent(id)}`;
+
+    navigator.share({
+      title: title,
+      text: 'Check out my latest blog!',
+      url: url,
+      socialShareOptions: {
+        whatsapp: {
+          text: 'Share on WhatsApp',
+          url: `whatsapp://send?text=Check%20out%20my%20latest%20blog!%20${encodeURIComponent(url)}`
+        },
+        instagram: {
+          text: 'Share on Instagram',
+          url: `https://www.instagram.com/?url=${encodeURIComponent(url)}`
+        }
       }
+    })
+      .then(() => {
+        console.log('Shared successfully.');
+      })
+      .catch((error) => {
+        console.log('Error sharing:', error);
+      });
+  } else {
+    console.log('Web Share API not supported.');
+    // Fallback behavior or show custom share menu
+  }
 }
+
 // things to check when content is loaded
 document.addEventListener("DOMContentLoaded",()=>{
   // get user login information

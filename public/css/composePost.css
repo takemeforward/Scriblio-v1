@@ -1,35 +1,41 @@
 #composeForm input{
-  
     box-shadow: 0 0 0;
 }
 #composeForm{
     margin-bottom: 3rem;
 }
+.compose-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.tinymce-container textarea {
+  width: 100%;
+}
+
 
 #image-upload-preview{
     margin: 4% 0;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     background-color: white;
     border: 1px solid rgb(199, 199, 199);
     max-height: 500px;
 }
-#myTextarea{
-    
-}
+
 input[name="postTitle"]{
     margin-bottom: 1rem;
-
 }
   
 #image-preview img{
     box-sizing: border-box;
-    width: 500px;
-    max-height: 100%;
+    max-width: 400px;
+    max-height: 300px;
     overflow: hidden;
 }
 #image-upload{
-    width: 30%;
+    /* width: 30%; */
 }
 #compose-heading{
     margin-top: 3rem;

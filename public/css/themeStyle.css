@@ -60,10 +60,13 @@
   .slider.round:before {
     border-radius: 50%;
   }
-  .dark-mode{
+  .dark-mode-l1{
       color: white;
-      background-color: rgb(44, 44, 44);
-      
+      background-color: rgb(25, 25, 25);
+  }
+  .dark-mode-l2{
+    color: white;
+    background-color: rgb(50, 50, 50);
   }
   .card-dark{
     background-color: rgb(55, 55, 55);

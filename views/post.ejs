@@ -1,16 +1,7 @@
 
 <%- include("partials/header"); -%>
 
-
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
-  pre {
-    white-space: pre-wrap;
-    font-family: "Roboto", sans-serif;
-    font-size: 1.3rem;
-    font-weight: 300;
-  }
-</style>
+<link rel="stylesheet" href="/css/post.css">
 
 <% const title = blog.title; const id = blog._id; const content = blog.content; const author = blog.author.firstName + " " + blog.author.lastName; %>
 <div class="wrapper">
@@ -20,7 +11,6 @@
       <h1 class="page-title"><%= title %></h1>
       <p></p>
     </header>
-    <section class="content">
       <pre>
         <%- content -%>
         <p><span>Written by:-</span> <%= author %></p>
@@ -33,16 +23,17 @@
             <% if(liked.length==0) {%>
             <i class="fa-regular fa-heart"></i> <br> <span id="like-count"><%= postLikes.length %></span>
             <%}else{ %>
-              <i class="fa-solid color-red fa-heart"></i> <br> <%= postLikes.length %>
+              <i class="fa-solid color-red fa-heart"></i> <br> <span id="like-count"><%= postLikes.length %></span>
             <% } %>
           </span>
         </form>
         
         <span class="comment-option"><i class="fa-regular fa-comment"></i><br> <%= comments.length %></span>
-        <span class="share-option" onclick="showShareMenu('')"><i class="fa-solid fa-share"></i><br>50</span>
+        <span class="share-option" onclick="showShareMenu('<%= id %>')">
+          <i class="fa-solid fa-share"></i>
+          <br><span class="share-count">69</span>
+        </span>
       </div>
-    </section>
-
 
   </div>
   <hr>

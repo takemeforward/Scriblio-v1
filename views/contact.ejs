@@ -1,22 +1,46 @@
 <%- include("partials/header"); -%>
 
 <link rel="stylesheet" href="css/contact.css">
-
-<header>
-  <h1 class="page-title">Welcome to Scriblio's contact page</h1>
-  <h4 class="page-subtitle">Give you feedback about my page</h4>
-</header>
-<div class="heading-primary" data-aos="fade-up">Contact us <i class="fa-regular fa-envelope"></i></div>
-<div class="form-container">
-    <form action="/contact" method="post" class="form"><i class="fa-dark fa-paper-plane-top"></i>
-    <input type="text" name="name" class="form-control" placeholder="Name">
-    <input type="email" name="email" class="form-control" placeholder="email:abc@example.com" required>
-    <textarea name="message" id="" class="form-control message" placeholder="write your message here">
-        
-    </textarea>
-    <button type="submit" class="btn btn-primary">Send <i class="fa-solid fa-paper-plane"></i></button>
+<div class="page-container">
+  <h1 class="page-heading">Contact us <i class="fa-regular fa-envelope"></i></h1>
+<div class="contact-container">
+  <div class="form-container">
+      <form action="/contact" method="post" class="form"><i class="fa-dark fa-paper-plane-top"></i>
+        <input type="text" name="name" class="form-control" placeholder="Name">
+        <input type="email" name="email" class="form-control" placeholder="email:abc@example.com" required>
+        <textarea name="message" id="textArea" class="form-control message" placeholder="write your message here">
+            
+        </textarea>
+        <button type="submit" class="btn btn-primary">Send <i class="fa-solid fa-paper-plane"></i></button>
+      
+      </form>
+  </div>
+  <div class="address">
     
-    </form>
+      <div class="connect"><i class="fa-solid fa-location-dot margin-3rem"> </i> Patna, Bihar</div>
+      <div class="connect"><i class="fa-solid fa-phone margin-3rem"> </i> (+91) 9471248211</div>
+      <div class="connect"><i class="fa-solid fa-envelope margin-3rem"> </i> vishalkumarkaushik.dev@gmail.com</div>
+  
+    
+    <hr>
+    <div class="socia">
+      <a href="https://www.instagram.com/kaih_ke_lunga/" target="_blank"><span class="round-logo"><span class="fa-brands fa-instagram"></span></span></a>
+
+      <a href="https://twitter.com/kaih_ke_lunga" target="_blank"><span class="round-logo"><span class="fa-brands fa-twitter"></span></span></a>
+      
+      <a href ="https://www.linkedin.com/in/vishal-jha-25a01421a/" target="_blank"><div class="round-logo"><span class="fa-brands fa-linkedin"></span></div></a>
+      
+      <a href="mailto:vishalkumarkaushik.dev@gmail.com"><span class="round-logo"><span class="fa-solid fa-envelope"></span> </span></a>
+    </div>
+    <hr>
+    <div class="rights">© Copyright Vishal Jha</div>
+  </div>
 </div>
-    <p> <%= contactContent %> </p>
+<p> <%= contactContent %> </p>  
+</div>
+
+<script>
+  const textarea = document.getElementById("textArea");
+  textarea.innerHTML = "";
+</script>
 <%- include("partials/footer"); -%>
