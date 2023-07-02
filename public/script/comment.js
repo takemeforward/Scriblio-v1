@@ -155,8 +155,6 @@ function showShareMenu(id) {
 
 // things to check when content is loaded
 document.addEventListener("DOMContentLoaded",()=>{
-  // get user login information
-  // post liked information
   fetch("/userinfo")
   .then(function(response) {
     if (response.ok) {
@@ -173,7 +171,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   .catch((err)=>{
     console.log(err);
   })
-})
+});
 
 
 

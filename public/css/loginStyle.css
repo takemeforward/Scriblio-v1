@@ -86,9 +86,13 @@ body{
 .input-field#confirmPassword{
   margin-bottom: 0;
 }
-.input-field:hover, .input-field:focus{
-  outline: 1px solid #ffa700;
-  background-color: #ffedca;
+.input-field:hover{
+  outline: 1px solid #afafaf;
+  background-color: #f1f1f1;
+}
+.input-field:focus{
+  outline: 1px solid #c2c2c2;
+  background-color: #e0dfdf;
 }
 
 .input-field, #submitButton, .google-button{

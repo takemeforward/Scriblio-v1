@@ -342,6 +342,91 @@ app.post("/like", (req, res)=>{
   }
 })
 
+app.get("/users/profile", async (req, res)=>{
+  if(req.isAuthenticated()){
+    const blogs = await Blog.find({author: req.user._id})
+    .populate({
+      path: 'author',
+      select: 'firstName lastName',
+      model: 'User'
+    });
+    res.render("profile", {
+    user: req.user,
+    posts: blogs
+  });
+  }else{
+    res.redirect("/");
+  }
+})
+app.post('/posts/delete', async (req, res)=>{
+  try{
+    if(req.isAuthenticated()){
+      console.log(req.body.postId);
+      await Blog.findByIdAndRemove(req.body.postId)
+      .then((success)=>{
+        if(success){
+          res.redirect("/users/profile");
+        }else{
+          res.redirect("/users/profile")
+        }
+      })
+    }
+  }
+  catch(err){
+    console.log(err);
+    res.redirect("/users/profile");
+  }
+})
+
+// Make sure to import the necessary modules and define the storage and upload configurations for multer
+
+app.post('/users/profile/photo', upload.single('profilePhoto'), async (req, res) => {
+  try {
+    if (req.isAuthenticated()) {
+      const user = await User.findById(req.user._id);
+      console.log(user);
+
+      if (!user) {
+        console.log('User not found!');
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Check if an image was uploaded
+      if (!req.file) {
+        return res.status(404).json({ error: 'No image uploaded' });
+      }
+
+      user.image.data = req.file.buffer;
+      user.image.contentType = req.file.mimetype;
+
+      await user.save();
+
+      console.log("save ho gya");
+      res.redirect("/users/profile");
+    } else {
+      res.redirect("/users/profile");
+    }
+  } catch (err) {
+    console.log("An error occurred", err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/users/profile/info', async (req, res)=>{
+  try{
+    if(req.isAuthenticated()){
+      const user = await User.findById(req.user._id);
+      user.personalInfo = req.body;
+      await user.save();
+      res.redirect("/users/profile");
+    }else{
+      res.redirect("/users/profile");
+    }
+  }
+  catch(err){
+    console.log(err);
+  }
+})
 
 app.get("/userinfo", (req, res)=>{
   if(req.isAuthenticated()){

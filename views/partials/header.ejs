@@ -8,7 +8,11 @@
     <title>Scriblio | a daily Journal site</title>
     <meta charset="utf-8">
    
-  
+  <style>
+	.hidden{
+		display: none;
+	}
+  </style>
   
 
    <%- include("resource") -%>
@@ -30,19 +34,62 @@
 		            <li class="nav-item">
 		                <a class="nav-link" href="/contact">CONTACT US</a>
 		            </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/contact">
-                    <label class="switch" title="click to change mode">
-                      <input type="checkbox" onclick="theme();">
-                      <span class="slider round"></span>
-                    </label>
-                  </a>
-              </li>
+					<li class="nav-item">
+						<a class="nav-link" href="/contact">
+							<label class="switch" title="click to change mode">
+							<input type="checkbox" onclick="theme();">
+							<span class="slider round"></span>
+							</label>
+						</a>
+					</li>
+						<li class="nav-item loggedout">
+							<a class="nav-link" href="/login">LOGIN</a>
+						</li>
+						<li class="nav-item loggedout">
+							<a class="nav-link" href="/register">REGISTER</a>
+						</li>
+					
+						<li class="nav-item loggedin hidden">
+							<a class="nav-link" href="/logout">LOGOUT</a>
+						</li>
+						<li class="nav-item loggedin hidden">
+							<a class="nav-link profile-icon" href="/users/profile"><img src="/images/profile.png" alt=""></a>
+						</li>
+					
 		        </ul>
 		     </div>
 	    </nav>
 		
 	</div>
-
+	<script>
+		document.addEventListener("DOMContentLoaded",()=>{
+			fetch("/userinfo")
+			.then(function(response) {
+				if (response.ok) {
+				return response.json();
+				} else {
+				throw new Error('Error: ' + response.status);
+				}
+			})
+			.then(function(data) {
+				const loggedin = document.querySelectorAll(".loggedin");
+				const loggedout = document.querySelectorAll(".loggedout");
+				if(data){
+					loggedin.forEach(element => {
+						element.classList.toggle("hidden");
+					});
+					loggedout.forEach(element => {
+						element.classList.toggle("hidden");
+					});
+					
+				}
+				
+				
+			})
+			.catch((err)=>{
+				console.log(err);
+			})
+		});
+	</script>
   <body>
  

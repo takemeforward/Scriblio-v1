@@ -1,0 +1,43 @@
+.page-container{
+    width: 80%;
+    margin: 3rem auto;
+}
+.v-card{
+    display: flex;
+    justify-content: space-around;
+}
+.sidebar{
+    width: 300px;
+}
+.content-after-sidebar{
+    width: 600px;
+}
+#image-preview img, .blog-card img{
+    width: 150px !important;
+    height: 150px !important;
+    overflow: hidden;
+}
+#image-preview img{
+    border-radius: 50%;
+}
+.edit-info form{
+    display: flex;
+    flex-direction: column;
+}
+.hidden{
+    display: none;
+}
+.blog-card{
+    background-color: rgb(247, 247, 247);
+    padding: 1%;
+    display: flex;
+    gap: 2rem;
+    margin: 1rem 0;
+}
+.fa-trash{
+    cursor: pointer;
+}
+.fa-trash:hover{
+    scale: 1.2;
+    filter: brightness(.8);
+}

@@ -42,15 +42,24 @@ body{
 	background-color: rgb(224, 224, 224) !important;
 }
 .nav-item, .navbar-brand div{
-	padding: 0 1rem;
-    letter-spacing: 2px;
+	padding: 0 .5rem;
+    letter-spacing: 1px;
 }
 .navbar-brand{
     cursor: auto;
 }
 .nav-link{
 	font-size: .92rem;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
+}
+.nav-link img{
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+}
+.profile-icon{
+	padding: 0;
+	padding-bottom: 8px;
 }
 
 .logo {

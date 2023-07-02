@@ -28,6 +28,16 @@ const userSchema = new mongoose.Schema({
   },
   googleId: {
     type: String
+  },
+  personalInfo: {
+    gender: String,
+    location: String,
+    introduction: String,
+    interests: String
+  },
+  image: {
+    data: Buffer,
+    contentType: String
   }
 });
 userSchema.plugin(passportLocalMongoose);
