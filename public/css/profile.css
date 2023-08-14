@@ -1,13 +1,17 @@
 .page-container{
-    width: 80%;
+    
+    width: 900px;
+    max-width: 90%;
     margin: 3rem auto;
 }
 .v-card{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    gap: 4rem;
 }
 .sidebar{
     width: 300px;
+
 }
 .content-after-sidebar{
     width: 600px;
@@ -23,6 +27,9 @@
 .edit-info form{
     display: flex;
     flex-direction: column;
+}
+.edit-info{
+    margin-top: 2rem;
 }
 .hidden{
     display: none;
@@ -40,4 +47,34 @@
 .fa-trash:hover{
     scale: 1.2;
     filter: brightness(.8);
+}
+.save-pic-btn{
+    margin-top: 1rem;
+}
+textarea{
+    width: 100%;
+}
+input{
+    width: 100%;
+}
+@media  (max-width: 600px){
+    .v-card{
+        display: block;
+        gap: 0;
+        width: 90%;
+        margin: auto;
+    }
+    .sidebar{
+        width: 75%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+
+    }
+    .content-after-sidebar{
+        width: 75%;
+        display: block;
+        margin: 0 auto;
+    }
 }

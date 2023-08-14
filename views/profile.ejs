@@ -20,21 +20,21 @@
                 
                 
             </p>
-            <form action="/users/profile/photo" method="post" id="profile-photo" class="hidden" enctype="multipart/form-data">
+            <form action="/users/profile/photo" method="post" id="profile-photo" class="" enctype="multipart/form-data">
                 <input type="file" name="profilePhoto" id="profile-photo">
-                <button type="submit">save photo</button>
+                <button class="btn btn-success save-pic-btn" type="submit">save photo</button>
             </form>
             <p>
                 <a href="">View full size</a>
             </p>
             <div class="user-stats">
-                <p class="sidebar-item item-key">joinded date</p>
-                <p class="sidebar-item item-key">profile-view</p>
+                <p class="sidebar-item item-key">joinded date: </p>
+                <p class="sidebar-item item-key">profile-view: 11</p>
             </div>
         </div>
         <div class="content-after-sidebar">
             <h2><%= user.firstName + " " + user.lastName %></h2>
-            <button class="edit-button">Edit profile</button>
+            <button class="edit-button btn-warning btn">Edit profile</button>
             <hr>
             <h2>About me</h2>
             <table>
@@ -66,24 +66,34 @@
         </div>
     </div>
     <div class="edit-info hidden">
-        <form action="/users/profile/info" method="post">
-            <label for="gender">Gender:</label>
-            <select name="gender" id="gender">
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
+        <h3>Edit your personal Information here.</h3>
+        <form action="/users/profile/info" method="post" >
+            <div class="form-control">
+                <label for="gender">Gender:</label>
+                <select name="gender" id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-control">
+                <label for="location">Location:</label>
+                <input type="text" name="location" id="location">
+            </div>
           
-            <label for="location">Location:</label>
-            <input type="text" name="location" id="location">
+            <div class="form-control">
+                <label for="introduction">Introduction:</label>
+                <textarea name="introduction" id="introduction" rows="2" cols="100"></textarea>
+            </div>
           
-            <label for="introduction">Introduction:</label>
-            <textarea name="introduction" id="introduction" rows="4"></textarea>
-          
+            
+          <div class="form-control">
             <label for="interests">Interests:</label>
             <textarea name="interests" id="interests" rows="4"></textarea>
+          </div>
+            
           
-            <button type="submit">Save info</button>
+            <button class="btn btn-success" type="submit">Save info</button>
           </form>
     </div>
     <div class="user-blog-list">
