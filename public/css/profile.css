@@ -77,4 +77,8 @@ input{
         display: block;
         margin: 0 auto;
     }
+    #image-preview img, .blog-card img{
+        width: 100%;
+        overflow: hidden;
+    }
 }
